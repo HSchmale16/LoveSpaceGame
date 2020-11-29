@@ -84,6 +84,7 @@ function Missile:create(x, y, dir, owner)
     setmetatable(missile, Missile)
     missile.x = x
     missile.y = y
+    missile.t = 0
     missile.dir = dir
     missile.owner = owner
     missile.dead = false
@@ -99,6 +100,7 @@ function Missile:draw()
 end
 
 function Missile:update()
+    missile.t = missile.t + 1
     self.y = self.y + self.dir
 end
 
@@ -123,19 +125,25 @@ end
 Enemy = {}
 Enemy.__index = Enemy
 
+ENEMY_AI_TABLE = {}
+
+function ENEMY_AI_TABLE:zigzag(enemy)
+end
+
+
 ENEMY_COLLECTION = {}
 ENEMY_SPAWN_RESET = 60
 ENEMY_SPAWN_TIMER = 0
 
 
-function Enemy:create(x, y, ai)
+function Enemy:create(x, y, enemy_type)
     local enemy = {}
     setmetatable(enemy, Enemy)
     enemy.x = x
     enemy.y = y
     self.width = 20
     self.height = 20
-    enemy.ai = ai
+    enemy.enemy_type = enemy_type
     table.insert(ENEMY_COLLECTION, enemy)
     return enemy
 end
@@ -145,7 +153,7 @@ function Enemy:draw()
 end
 
 function Enemy:update()
-    self.y = self.y + 1
+    ENEMY_AI_TABLE[self.enemy_type](self)
 end
 
 function Enemy:isDead()
