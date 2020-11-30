@@ -3,7 +3,7 @@
 A bullet hell style game written in lua using the love game engine.
 
 As it stands it's basically a re-creation of the very first flash game I
-made.
+made. Read the related blog post at: https://www.henryschmale.org/2020/11/29/love-game-engine.html
 
 # How to Run
 
